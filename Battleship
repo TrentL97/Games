@@ -1,0 +1,174 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+const int rows = 10;
+const int columns = 10;
+int maxShips1 = 2;
+int maxShips2 = 4;
+int maxShips3 = 5;
+int matrix[rows][columns];
+void clear()
+{
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			matrix[i][j] = 0;
+		}
+	}
+}
+void show()
+{
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			cout << matrix[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+void hide()
+{
+	cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl
+		<< endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl
+		<< endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl
+		<< endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
+}
+int numberOfShips() {
+	int c = 0;
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			if (matrix[i][j] == 1)
+				c++;
+		}
+	}
+	return c;
+}
+int x, y;
+void setShips() {
+	int s = 0;
+	while (s < maxShips1) {
+		cin >> x >> y;
+		if (matrix[x][y] != 1) {
+			s++;
+			matrix[x][y] = 1;
+			matrix[x + 1][y] = 1;
+		}
+	}
+	while (s < maxShips2) {
+		cin >> x >> y;
+		if (matrix[x][y] != 1) {
+			s++;
+			matrix[x][y] = 1;
+			matrix[x][y + 1] = 1;
+			matrix[x][y + 2] = 1;
+		}
+	}
+	while (s < maxShips3) {
+		cin >> x >> y;
+		if (matrix[x][y] != 1) {
+			s++;
+			matrix[x][y] = 1;
+			matrix[x][y + 1] = 1;
+			matrix[x][y + 2] = 1;
+			matrix[x][y + 3] = 1;
+		}
+	}
+}
+bool attack(int x, int y)
+{
+	if (matrix[x][y] == 1) {
+		matrix[x][y] = 7;
+		return true;
+	}
+	else if (matrix[x][y] == 0 || matrix[x][y] == 4) {
+		matrix[x][y] = 4;
+		return false;
+	}
+}
+void proceed()
+{
+	char a, b;
+	cout << "Here is your layout. To proceed to attacks enter Y. Otherwise enter N. (if 2nd message, press N to reenter)";
+	cin >> a;
+	if (a != 'y') {
+		clear();
+		show();
+		cout << "_________________________" << endl;
+		cout << "Please reenter your coordinates" << endl;
+		setShips();
+		show();
+		cout << "Here is your layout. To proceed to attacks enter Y. Otherwise enter N.";
+		cin >> b;
+		if (b != 'y') {
+			proceed();
+		}
+	}
+}
+bool term() {
+	int c = 0;
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			if (matrix[i][j] == 4)
+				c++;
+		}
+	}
+	if (c == 2) {
+		return true;
+	}
+	else return false;
+}
+	void numberOfRemainingHits() {
+		int c = 0;
+		while (matrix[x][y] != 1) {
+			c++;
+		}
+	int a = 15 - c;
+	cout << a;
+}
+	void score() {
+		int c = 0;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if (matrix[i][j] == 7)
+					c++;
+			}
+		}
+		cout<< c;
+	}
+int main()
+{
+	clear();
+	show();
+	cout << "_________________________" << endl;
+	setShips();
+	show();
+	proceed();
+	hide();
+	int p1, p2;
+	while (1) {
+		cout << "Enter your attack!"; cin >> p1 >> p2;
+		if (attack(p1, p2))
+			cout << "You've hit a ship!" << endl;
+		else
+		{
+			cout << "You hit water.." << endl;
+			if (term() == true)
+				break;
+		}
+		cout << "score: ";
+		score();
+		cout << endl;
+	}
+	return 0;
+}
+/*
+Manual:
+Setter: "Enter the coordinates of your ships. Your first two ships will be vertically oriented
+cruisers with a length of two units. Your next set of two ships will be horizontally oriented destroyers
+with a length of three units. Your final ship will be a horizontally oriented battleship with a length
+of four units. You will enter your ship by entering the primary coordinate (the coordinate at the upmost
+or leftmost portion of the ship. After confirming your coordinates, pass control to your opponent."
+Attacker: "Once the coordinates have been set, you will be given 20 false attempts to destroy as many enemy ships
+as possible. Remember, there are five ships with different orientations and length. Also you will not be penalized
+for inputting the same coordinates twice. Good luck!"
+
+Note coordinates are entered with the y coordinate first.
+*/
