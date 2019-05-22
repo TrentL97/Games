@@ -4,4 +4,4 @@ Player one starts the game on the bottom of the board and player two follows in 
 
 Gameplay: After one player completes their turn, the turn is automatically passed to the opponent, and this gameplay is repeated until one player is put into checkmate, or until either player voluntarily leaves the game. At the start of the turn, the player chooses from a variety of keys to move their various pieces, all of which are described in the legend. Alternatively: the player can press 'l' to pull up the legend, 'm' to pull up this manual, 'n' to pull up the redacted form of this manual (containing just the gameplay paragraph), or 'z' to leave the game. Once the player has chosen a piece, they can enter 'p' if they would like to change to a different piece. All illegal moves, such as hopping pieces, taking friendly pieces, moving outside the boardspace, taking the enemy king, and putting your own king into check, are filtered and will cause an error message to appear. 
 Trenton Lindenberger
-Most recent edit date: 5/18/2019
+Most recent edit date: 5/21/2019
